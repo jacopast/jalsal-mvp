@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>잘살아보세 | AI 튜터링</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B35;
+            --primary-light: #FF8F5E;
+            --secondary: #2C5530;
+            --success: #4CAF50;
+            --warning: #FF9800;
+            --danger: #f44336;
+            --dark: #1a1a2e;
+            --gray: #6c757d;
+            --light-gray: #f5f5f5;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            background: var(--light-gray);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--white);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--dark), #2a2a4e);
+            color: var(--white);
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .child-select {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 15px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .child-avatar {
+            font-size: 24px;
+        }
+
+        .child-details h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .child-details p {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        /* Content */
+        .content {
+            padding: 20px;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            background: var(--white);
+            border: 2px dashed #ddd;
+            border-radius: 20px;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .upload-section:hover,
+        .upload-section.dragover {
+            border-color: var(--primary);
+            background: rgba(255, 107, 53, 0.05);
+        }
+
+        .upload-section.has-image {
+            padding: 10px;
+            border-style: solid;
+            border-color: var(--success);
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .upload-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .upload-section p {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        .preview-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 15px;
+            object-fit: contain;
+        }
+
+        .image-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: var(--light-gray);
+            color: var(--dark);
+        }
+
+        .btn-small {
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+
+        /* Worksheet Selection */
+        .worksheet-section {
+            margin-bottom: 20px;
+        }
+
+        .section-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .worksheet-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .worksheet-option {
+            padding: 15px;
+            background: var(--light-gray);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .worksheet-option:hover {
+            background: #eee;
+        }
+
+        .worksheet-option.selected {
+            border-color: var(--primary);
+            background: rgba(255, 107, 53, 0.1);
+        }
+
+        .worksheet-option .icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .worksheet-option .name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        /* Loading State */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-content {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 300px;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--light-gray);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-content h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .loading-content p {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        /* Result Section */
+        .result-section {
+            display: none;
+        }
+
+        .result-section.active {
+            display: block;
+        }
+
+        .result-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .score-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .score-circle {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--success), #66BB6A);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        .score-circle.warning {
+            background: linear-gradient(135deg, var(--warning), #FFB74D);
+        }
+
+        .score-circle.danger {
+            background: linear-gradient(135deg, var(--danger), #EF5350);
+        }
+
+        .score-circle .score {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .score-circle .label {
+            font-size: 12px;
+        }
+
+        .score-info h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .score-info p {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .feedback-item {
+            margin-bottom: 20px;
+        }
+
+        .feedback-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .feedback-item h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feedback-text {
+            background: var(--light-gray);
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #444;
+        }
+
+        .next-step-card {
+            background: linear-gradient(135deg, var(--secondary), #3d6b40);
+            border-radius: 15px;
+            padding: 20px;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .next-step-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .next-step-icon {
+            font-size: 30px;
+        }
+
+        .next-step-info h4 {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .next-step-info p {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-top: 3px;
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background: linear-gradient(135deg, var(--dark), #2a2a4e);
+            border-radius: 20px;
+            padding: 20px;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .stat-box .label {
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 5px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: none;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: var(--white);
+            color: var(--dark);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* History List */
+        .history-item {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .history-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--light-gray);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .history-info {
+            flex: 1;
+        }
+
+        .history-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .history-info p {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .history-score {
+            text-align: right;
+        }
+
+        .history-score .score {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        .history-score .date {
+            font-size: 11px;
+            color: var(--gray);
+        }
+
+        /* Skills Section */
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .skill-name {
+            width: 80px;
+            font-size: 13px;
+            color: var(--dark);
+        }
+
+        .skill-bar {
+            flex: 1;
+            height: 10px;
+            background: var(--light-gray);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .skill-fill.high {
+            background: var(--success);
+        }
+
+        .skill-fill.medium {
+            background: var(--warning);
+        }
+
+        .skill-fill.low {
+            background: var(--danger);
+        }
+
+        .skill-percent {
+            width: 40px;
+            text-align: right;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* Responsive */
+        @media (max-width: 500px) {
+            .container {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-top">
+                <div class="logo">잘살아보세 🌱</div>
+                <div class="user-info">
+                    <span id="total-worksheets">0</span>장 완료
+                </div>
+            </div>
+            <div class="child-select">
+                <span class="child-avatar">👧</span>
+                <div class="child-details">
+                    <h3 id="child-name">Sol</h3>
+                    <p>5학년 • Phase <span id="current-phase">1</span></p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Tab Navigation -->
+        <div class="content">
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="scan">📸 스캔</button>
+                <button class="tab-btn" data-tab="history">📊 기록</button>
+                <button class="tab-btn" data-tab="profile">👤 프로필</button>
+            </div>
+
+            <!-- SCAN TAB -->
+            <div class="tab-content active" id="tab-scan">
+                <!-- Worksheet Selection -->
+                <div class="worksheet-section">
+                    <label class="section-label">어떤 워크시트인가요?</label>
+                    <div class="worksheet-grid">
+                        <div class="worksheet-option selected" data-type="bme">
+                            <div class="icon">📖</div>
+                            <div class="name">B-M-E</div>
+                        </div>
+                        <div class="worksheet-option" data-type="swbst">
+                            <div class="icon">📝</div>
+                            <div class="name">SWBST</div>
+                        </div>
+                        <div class="worksheet-option" data-type="main-idea">
+                            <div class="icon">🔍</div>
+                            <div class="name">Main Idea</div>
+                        </div>
+                        <div class="worksheet-option" data-type="character">
+                            <div class="icon">👤</div>
+                            <div class="name">Character</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upload Section -->
+                <div class="upload-section" id="upload-area">
+                    <input type="file" id="file-input" accept="image/*" capture="environment">
+                    <div id="upload-placeholder">
+                        <div class="upload-icon">📷</div>
+                        <h3>워크시트 사진 올리기</h3>
+                        <p>클릭하거나 드래그해서 업로드</p>
+                    </div>
+                    <div id="preview-container" style="display: none;">
+                        <img id="preview-image" class="preview-image" src="" alt="Preview">
+                        <div class="image-actions">
+                            <button class="btn btn-secondary btn-small" id="change-image">🔄 다시 찍기</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analyze Button -->
+                <button class="btn btn-primary" id="analyze-btn" disabled>
+                    🤖 AI 분석하기
+                </button>
+
+                <!-- Result Section -->
+                <div class="result-section" id="result-section">
+                    <div class="result-card">
+                        <div class="score-header">
+                            <div class="score-circle" id="result-score-circle">
+                                <span class="score" id="result-score">4</span>
+                                <span class="label">/ 5점</span>
+                            </div>
+                            <div class="score-info">
+                                <h3 id="result-worksheet-name">B-M-E Story Structure</h3>
+                                <p id="result-date">오늘</p>
+                            </div>
+                        </div>
+
+                        <div class="feedback-item">
+                            <h4>💪 잘한 점</h4>
+                            <div class="feedback-text" id="result-strengths">
+                                Loading...
+                            </div>
+                        </div>
+
+                        <div class="feedback-item">
+                            <h4>📈 개선할 점</h4>
+                            <div class="feedback-text" id="result-improvements">
+                                Loading...
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="next-step-card" id="next-step-card">
+                        <div class="next-step-icon">📝</div>
+                        <div class="next-step-info">
+                            <h4 id="next-worksheet-name">다음 워크시트 준비됨!</h4>
+                            <p>탭해서 새 워크시트 스캔하기 →</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HISTORY TAB -->
+            <div class="tab-content" id="tab-history">
+                <div id="history-list">
+                    <!-- History items will be added dynamically -->
+                    <div style="text-align: center; padding: 40px; color: var(--gray);">
+                        아직 기록이 없어요.<br>첫 워크시트를 스캔해보세요!
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROFILE TAB -->
+            <div class="tab-content" id="tab-profile">
+                <div class="profile-card">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <span style="font-size: 40px;">👧</span>
+                        <div>
+                            <h3 style="font-size: 20px; font-weight: 700;" id="profile-name">Sol</h3>
+                            <p style="opacity: 0.8; font-size: 14px;">5학년 • NJ 북부</p>
+                        </div>
+                    </div>
+                    <div class="profile-stats">
+                        <div class="stat-box">
+                            <div class="value" id="stat-total">0</div>
+                            <div class="label">완료 워크시트</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="value" id="stat-avg">-</div>
+                            <div class="label">평균 점수</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="value" id="stat-streak">0일</div>
+                            <div class="label">연속 학습</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <h4 style="margin-bottom: 20px; font-size: 16px;">📊 스킬별 진도</h4>
+                    <div id="skills-container">
+                        <div class="skill-item">
+                            <span class="skill-name">B-M-E</span>
+                            <div class="skill-bar">
+                                <div class="skill-fill high" id="skill-bme" style="width: 0%"></div>
+                            </div>
+                            <span class="skill-percent" id="skill-bme-pct">0%</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">SWBST</span>
+                            <div class="skill-bar">
+                                <div class="skill-fill medium" id="skill-swbst" style="width: 0%"></div>
+                            </div>
+                            <span class="skill-percent" id="skill-swbst-pct">0%</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Main Idea</span>
+                            <div class="skill-bar">
+                                <div class="skill-fill high" id="skill-main-idea" style="width: 0%"></div>
+                            </div>
+                            <span class="skill-percent" id="skill-main-idea-pct">0%</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Character</span>
+                            <div class="skill-bar">
+                                <div class="skill-fill low" id="skill-character" style="width: 0%"></div>
+                            </div>
+                            <span class="skill-percent" id="skill-character-pct">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <h4 style="margin-bottom: 15px; font-size: 16px;">💪 강점</h4>
+                    <div class="feedback-text" id="profile-strengths">
+                        아직 데이터가 충분하지 않아요.
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <h4 style="margin-bottom: 15px; font-size: 16px;">📈 개선 중</h4>
+                    <div class="feedback-text" id="profile-improvements">
+                        아직 데이터가 충분하지 않아요.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h3>AI 분석 중...</h3>
+            <p>손글씨를 읽고 피드백을 준비하고 있어요</p>
+        </div>
+    </div>
+
+    <script>
+        // ============ STATE MANAGEMENT ============
+        const state = {
+            selectedWorksheet: 'bme',
+            uploadedImage: null,
+            profile: JSON.parse(localStorage.getItem('jalsal_profile')) || {
+                name: 'Sol',
+                history: [],
+                skills: {
+                    'bme': { total: 0, score: 0 },
+                    'swbst': { total: 0, score: 0 },
+                    'main-idea': { total: 0, score: 0 },
+                    'character': { total: 0, score: 0 }
+                },
+                strengths: [],
+                improvements: []
+            }
+        };
+
+        const worksheetNames = {
+            'bme': 'B-M-E Story Structure',
+            'swbst': 'SWBST Summary',
+            'main-idea': 'Main Idea Detective',
+            'character': 'Character Analysis'
+        };
+
+        // ============ DOM ELEMENTS ============
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('file-input');
+        const uploadPlaceholder = document.getElementById('upload-placeholder');
+        const previewContainer = document.getElementById('preview-container');
+        const previewImage = document.getElementById('preview-image');
+        const analyzeBtn = document.getElementById('analyze-btn');
+        const resultSection = document.getElementById('result-section');
+        const loadingOverlay = document.getElementById('loading-overlay');
+
+        // ============ EVENT LISTENERS ============
+
+        // Tab Navigation
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
+            });
+        });
+
+        // Worksheet Selection
+        document.querySelectorAll('.worksheet-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelectorAll('.worksheet-option').forEach(o => o.classList.remove('selected'));
+                option.classList.add('selected');
+                state.selectedWorksheet = option.dataset.type;
+            });
+        });
+
+        // Upload Area Click
+        uploadArea.addEventListener('click', () => {
+            if (!state.uploadedImage) {
+                fileInput.click();
+            }
+        });
+
+        // File Input Change
+        fileInput.addEventListener('change', handleFileSelect);
+
+        // Drag and Drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                handleFile(file);
+            }
+        });
+
+        // Change Image Button
+        document.getElementById('change-image').addEventListener('click', (e) => {
+            e.stopPropagation();
+            resetUpload();
+            fileInput.click();
+        });
+
+        // Analyze Button
+        analyzeBtn.addEventListener('click', analyzeWorksheet);
+
+        // Next Step Card
+        document.getElementById('next-step-card').addEventListener('click', () => {
+            resetUpload();
+            resultSection.classList.remove('active');
+        });
+
+        // ============ FUNCTIONS ============
+
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (file) {
+                handleFile(file);
+            }
+        }
+
+        function handleFile(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                state.uploadedImage = e.target.result;
+                previewImage.src = e.target.result;
+                uploadPlaceholder.style.display = 'none';
+                previewContainer.style.display = 'block';
+                uploadArea.classList.add('has-image');
+                analyzeBtn.disabled = false;
+                resultSection.classList.remove('active');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function resetUpload() {
+            state.uploadedImage = null;
+            fileInput.value = '';
+            uploadPlaceholder.style.display = 'block';
+            previewContainer.style.display = 'none';
+            uploadArea.classList.remove('has-image');
+            analyzeBtn.disabled = true;
+        }
+
+        async function analyzeWorksheet() {
+            loadingOverlay.classList.add('active');
+
+            // Simulate AI analysis (replace with real API call)
+            await new Promise(resolve => setTimeout(resolve, 2500));
+
+            // Generate feedback based on worksheet type
+            const feedback = generateFeedback(state.selectedWorksheet);
+
+            // Update result UI
+            document.getElementById('result-score').textContent = feedback.score;
+            document.getElementById('result-worksheet-name').textContent = worksheetNames[state.selectedWorksheet];
+            document.getElementById('result-date').textContent = '오늘';
+            document.getElementById('result-strengths').textContent = feedback.strengths;
+            document.getElementById('result-improvements').textContent = feedback.improvements;
+
+            // Update score circle color
+            const scoreCircle = document.getElementById('result-score-circle');
+            scoreCircle.classList.remove('warning', 'danger');
+            if (feedback.score < 3) scoreCircle.classList.add('danger');
+            else if (feedback.score < 4) scoreCircle.classList.add('warning');
+
+            // Save to history
+            saveToHistory(feedback);
+
+            // Show result
+            loadingOverlay.classList.remove('active');
+            resultSection.classList.add('active');
+
+            // Scroll to result
+            resultSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function generateFeedback(worksheetType) {
+            // In production, this would call OpenAI Vision API
+            const feedbackTemplates = {
+                'bme': {
+                    strengths: [
+                        'Beginning 부분에서 주인공과 배경을 정확히 파악했어요! 이야기의 시작점을 잘 이해하고 있네요.',
+                        'End 부분에서 문제 해결 과정을 명확하게 설명했어요. 결말의 의미를 잘 파악했네요!',
+                        '각 부분을 분리해서 생각하는 능력이 뛰어나요. 이야기 구조 파악이 잘 되고 있어요.'
+                    ],
+                    improvements: [
+                        'Middle 부분에서 갈등을 조금 더 자세히 설명하면 좋겠어요. 주인공이 왜 힘들었는지, 어떤 감정을 느꼈는지 추가해보세요.',
+                        'Beginning과 End의 연결을 더 명확히 해보세요. 주인공이 어떻게 변화했는지 생각해보면 좋겠어요.',
+                        '문장을 완성형으로 쓰면 더 좋을 것 같아요. 주어와 동사를 명확하게 써보세요.'
+                    ]
+                },
+                'swbst': {
+                    strengths: [
+                        'Somebody(누가)와 Wanted(원했다)를 정확히 파악했어요! 주인공의 목표를 잘 이해하고 있네요.',
+                        'But(하지만) 부분에서 문제 상황을 잘 찾아냈어요. 이야기의 핵심 갈등을 파악하는 능력이 좋아요!',
+                        '전체 요약이 논리적으로 연결되어 있어요. SWBST 순서대로 잘 정리했네요.'
+                    ],
+                    improvements: [
+                        'So(그래서)와 Then(그 다음) 부분을 더 구체적으로 써보세요. 해결 과정을 자세히 설명하면 좋겠어요.',
+                        '한 문장으로 요약할 때 모든 요소를 포함시켜보세요. 연결어(because, so, then)를 활용하면 좋아요.',
+                        'Wanted 부분에서 주인공의 감정도 함께 써보면 더 풍부한 요약이 될 거예요.'
+                    ]
+                },
+                'main-idea': {
+                    strengths: [
+                        '글의 주제(Topic)를 정확히 파악했어요! 핵심 키워드를 잘 찾아냈네요.',
+                        '세부 사항(Details)과 중심 생각(Main Idea)을 구분하는 능력이 뛰어나요.',
+                        '중심 생각을 완전한 문장으로 잘 표현했어요. 글의 핵심 메시지를 이해하고 있네요!'
+                    ],
+                    improvements: [
+                        '세부 사항을 더 다양하게 찾아보세요. 글에서 3개 이상의 구체적인 예시를 찾을 수 있어요.',
+                        '중심 생각과 세부 사항의 관계를 더 명확히 연결해보세요. \"왜\"라는 질문을 해보면 좋아요.',
+                        'Topic과 Main Idea의 차이를 기억하세요. Topic은 단어, Main Idea는 완전한 문장이에요.'
+                    ]
+                },
+                'character': {
+                    strengths: [
+                        '인물의 특성(Traits)을 여러 개 찾아냈어요! 텍스트에서 근거를 잘 찾고 있네요.',
+                        '인물의 변화(Character Change)를 잘 파악했어요. 처음과 끝의 차이를 이해하고 있어요.',
+                        '인물의 행동과 감정을 연결해서 분석했어요. 깊이 있는 이해력이 보여요!'
+                    ],
+                    improvements: [
+                        'Evidence(증거)를 찾을 때 정확한 인용을 써보세요. 글에서 직접 가져온 문장을 사용하면 좋아요.',
+                        '인물의 감정 변화 이유를 더 자세히 분석해보세요. \"왜 변했을까?\"라는 질문을 해보세요.',
+                        '다른 인물과의 관계가 주인공에게 어떤 영향을 줬는지도 생각해보면 좋겠어요.'
+                    ]
+                }
+            };
+
+            const template = feedbackTemplates[worksheetType];
+            const score = Math.floor(Math.random() * 2) + 3.5; // 3.5-4.5 range
+            const roundedScore = Math.round(score * 2) / 2; // Round to 0.5
+
+            return {
+                score: roundedScore,
+                strengths: template.strengths[Math.floor(Math.random() * template.strengths.length)],
+                improvements: template.improvements[Math.floor(Math.random() * template.improvements.length)]
+            };
+        }
+
+        function saveToHistory(feedback) {
+            const entry = {
+                id: Date.now(),
+                worksheet: state.selectedWorksheet,
+                name: worksheetNames[state.selectedWorksheet],
+                score: feedback.score,
+                strengths: feedback.strengths,
+                improvements: feedback.improvements,
+                date: new Date().toISOString()
+            };
+
+            state.profile.history.unshift(entry);
+
+            // Update skill scores
+            const skill = state.profile.skills[state.selectedWorksheet];
+            skill.total++;
+            skill.score = ((skill.score * (skill.total - 1)) + feedback.score) / skill.total;
+
+            // Save to localStorage
+            localStorage.setItem('jalsal_profile', JSON.stringify(state.profile));
+
+            // Update UI
+            updateProfileUI();
+            updateHistoryUI();
+        }
+
+        function updateProfileUI() {
+            const profile = state.profile;
+            const totalWorksheets = profile.history.length;
+            const avgScore = totalWorksheets > 0
+                ? (profile.history.reduce((sum, h) => sum + h.score, 0) / totalWorksheets).toFixed(1)
+                : '-';
+
+            document.getElementById('total-worksheets').textContent = totalWorksheets;
+            document.getElementById('stat-total').textContent = totalWorksheets;
+            document.getElementById('stat-avg').textContent = avgScore;
+
+            // Update skill bars
+            Object.keys(profile.skills).forEach(skill => {
+                const skillData = profile.skills[skill];
+                const percent = skillData.total > 0 ? Math.round((skillData.score / 5) * 100) : 0;
+                const bar = document.getElementById(`skill-${skill}`);
+                const pct = document.getElementById(`skill-${skill}-pct`);
+                if (bar && pct) {
+                    bar.style.width = `${percent}%`;
+                    pct.textContent = `${percent}%`;
+
+                    bar.classList.remove('high', 'medium', 'low');
+                    if (percent >= 70) bar.classList.add('high');
+                    else if (percent >= 50) bar.classList.add('medium');
+                    else bar.classList.add('low');
+                }
+            });
+
+            // Update strengths/improvements
+            if (profile.history.length > 0) {
+                const recentStrengths = profile.history.slice(0, 3).map(h => h.strengths);
+                const recentImprovements = profile.history.slice(0, 3).map(h => h.improvements);
+
+                document.getElementById('profile-strengths').innerHTML =
+                    '• ' + recentStrengths[0];
+                document.getElementById('profile-improvements').innerHTML =
+                    '• ' + recentImprovements[0];
+            }
+        }
+
+        function updateHistoryUI() {
+            const historyList = document.getElementById('history-list');
+
+            if (state.profile.history.length === 0) {
+                historyList.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: var(--gray);">
+                        아직 기록이 없어요.<br>첫 워크시트를 스캔해보세요!
+                    </div>
+                `;
+                return;
+            }
+
+            const icons = {
+                'bme': '📖',
+                'swbst': '📝',
+                'main-idea': '🔍',
+                'character': '👤'
+            };
+
+            historyList.innerHTML = state.profile.history.map(entry => {
+                const date = new Date(entry.date);
+                const dateStr = formatDate(date);
+                const scoreColor = entry.score >= 4 ? 'var(--success)' : entry.score >= 3 ? 'var(--warning)' : 'var(--danger)';
+
+                return `
+                    <div class="history-item">
+                        <div class="history-icon">${icons[entry.worksheet] || '📝'}</div>
+                        <div class="history-info">
+                            <h4>${entry.name}</h4>
+                            <p>${entry.strengths.substring(0, 30)}...</p>
+                        </div>
+                        <div class="history-score">
+                            <div class="score" style="color: ${scoreColor}">${entry.score}/5</div>
+                            <div class="date">${dateStr}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function formatDate(date) {
+            const now = new Date();
+            const diff = now - date;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+            if (days === 0) return '오늘';
+            if (days === 1) return '어제';
+            if (days < 7) return `${days}일 전`;
+            return `${date.getMonth() + 1}/${date.getDate()}`;
+        }
+
+        // Initialize
+        updateProfileUI();
+        updateHistoryUI();
+    </script>
+</body>
+
+</html>
