@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>잘살아보세 | AI와 함께하는 5학년 영어 읽기·쓰기</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B35;
+            --primary-dark: #E55A2B;
+            --secondary: #2C5530;
+            --accent: #FFD700;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            padding: 20px;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 107, 53, 0.2);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 30px;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            animation: fadeInUp 0.6s ease 0.1s both;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            font-weight: 300;
+            animation: fadeInUp 0.6s ease 0.2s both;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.6s ease 0.3s both;
+        }
+
+        .btn {
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 20px;
+            background: var(--light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 25px;
+        }
+
+        .feature-icon.orange {
+            background: linear-gradient(135deg, #FF6B35, #FF8F5E);
+        }
+
+        .feature-icon.green {
+            background: linear-gradient(135deg, #2C5530, #4A7C59);
+        }
+
+        .feature-icon.blue {
+            background: linear-gradient(135deg, #4169E1, #6B8CFF);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 100px 20px;
+            background: #fff;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .step {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            min-width: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .step-content h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .step-content p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* Curriculum Preview */
+        .curriculum {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, var(--secondary), #1e3a21);
+            color: #fff;
+        }
+
+        .phase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .phase-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .phase-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .phase-number {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .phase-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .phase-card p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 20px;
+            background: var(--light);
+            text-align: center;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 60px 40px;
+            border-radius: 30px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-box h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .cta-box p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 30px;
+        }
+
+        .email-form {
+            display: flex;
+            gap: 10px;
+            max-width: 450px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .email-form input {
+            flex: 1;
+            min-width: 200px;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .email-form button {
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .email-form button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 20px;
+            background: var(--dark);
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            font-size: 14px;
+        }
+
+        footer .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .step {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🎓 뉴저지 5학년 학부모를 위한</div>
+            <h1>AI와 함께하는<br><span>영어 읽기·쓰기 마스터</span></h1>
+            <p class="hero-subtitle">
+                바쁜 부모님도 쉽게!<br>
+                출력 → 작성 → 사진 업로드 = AI 맞춤 피드백
+            </p>
+            <div class="hero-cta">
+                <a href="#cta" class="btn btn-primary">무료 체험 시작하기</a>
+                <a href="#how" class="btn btn-secondary">어떻게 작동하나요?</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>왜 잘살아보세인가요?</h2>
+                <p>복잡한 학원 대신, 집에서 AI와 함께하는 스마트한 학습</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon orange">📄</div>
+                    <h3>출력만 하세요</h3>
+                    <p>5학년 수준에 맞춘 전문 워크시트를 PDF로 출력하세요. 기술이 필요 없어요!</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon green">📸</div>
+                    <h3>사진만 찍으세요</h3>
+                    <p>아이가 손으로 작성한 워크시트를 사진으로 찍어 업로드하면 끝!</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon blue">🤖</div>
+                    <h3>AI가 피드백해요</h3>
+                    <p>아이의 수준을 분석하고 격려하는 맞춤 피드백을 한글로 받아보세요.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how">
+        <div class="container">
+            <div class="section-header">
+                <h2>이렇게 사용하세요</h2>
+                <p>3단계만 따라하면 됩니다</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>워크시트 출력하기</h3>
+                        <p>B-M-E, SWBST, Main Idea 등 체계적인 영어 워크시트를 출력해서 아이에게 주세요. 각 워크시트는 짧은 읽기 지문과 답변 공간으로 구성되어 있어요.
+                        </p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>아이가 손글씨로 작성</h3>
+                        <p>아이가 직접 읽고, 생각하고, 손으로 적어요. 디지털 기기 없이 집중력 있는 학습이 가능해요. 약 20-30분이면 충분해요.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>사진 찍고 AI 피드백 받기</h3>
+                        <p>완성된 워크시트를 사진으로 찍어 ChatGPT나 Claude에 업로드하세요. 저희가 제공하는 프롬프트를 복붙하면 전문적인 한글 피드백을 받을 수 있어요!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculum Preview -->
+    <section class="curriculum">
+        <div class="container">
+            <div class="section-header">
+                <h2 style="color: #fff;">12주 완성 커리큘럼</h2>
+                <p style="color: rgba(255,255,255,0.7);">미국 5학년 Common Core 기준으로 설계된 체계적인 로드맵</p>
+            </div>
+            <div class="phase-grid">
+                <div class="phase-card">
+                    <span class="phase-number">Phase 1</span>
+                    <h3>구조 & 요약</h3>
+                    <p>B-M-E, SWBST, Main Idea</p>
+                </div>
+                <div class="phase-card">
+                    <span class="phase-number">Phase 2</span>
+                    <h3>주제 & 증거</h3>
+                    <p>Theme, Text Evidence, P.E.E.</p>
+                </div>
+                <div class="phase-card">
+                    <span class="phase-number">Phase 3</span>
+                    <h3>문학 분석</h3>
+                    <p>Figurative Language, Symbolism</p>
+                </div>
+                <div class="phase-card">
+                    <span class="phase-number">Phase 4</span>
+                    <h3>비판적 사고</h3>
+                    <p>Fact vs Opinion, OREO Essay</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="cta">
+        <div class="cta-box">
+            <h2>🎉 지금 무료로 시작하세요</h2>
+            <p>이메일을 남겨주시면 Phase 1 워크시트 4장과<br>부모용 가이드를 보내드려요!</p>
+            <form class="email-form">
+                <input type="email" placeholder="이메일 주소를 입력하세요" required>
+                <button type="submit">무료 받기</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="logo">잘살아보세</div>
+        <p>© 2025 잘살아보세 프로젝트. NJ 북부 한인 학부모를 위한 교육 솔루션.</p>
+    </footer>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Simple form handling
+        document.querySelector('.email-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const email = this.querySelector('input').value;
+            alert('감사합니다! ' + email + '로 워크시트를 보내드릴게요.');
+            this.querySelector('input').value = '';
+        });
+    </script>
+</body>
+
+</html>

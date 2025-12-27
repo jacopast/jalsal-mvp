@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Idea Detective Worksheet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: letter;
+            margin: 0.5in;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            font-size: 12pt;
+            line-height: 1.5;
+            color: #333;
+            padding: 0.5in;
+            max-width: 8.5in;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .title-section h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            color: #4169e1;
+        }
+
+        .title-section .subtitle {
+            font-size: 11pt;
+            color: #666;
+            font-style: italic;
+        }
+
+        .info-section {
+            text-align: right;
+            font-size: 10pt;
+        }
+
+        .info-section .name-line {
+            margin-bottom: 5px;
+        }
+
+        .info-section .name-line span {
+            display: inline-block;
+            border-bottom: 1px solid #333;
+            min-width: 150px;
+        }
+
+        .mission-box {
+            background: #e8f0fe;
+            border-left: 4px solid #4169e1;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .mission-box h2 {
+            font-size: 12pt;
+            color: #4169e1;
+            margin-bottom: 8px;
+        }
+
+        .mission-box p {
+            font-size: 11pt;
+        }
+
+        .concept-box {
+            background: #fff;
+            border: 2px solid #4169e1;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .concept-box h3 {
+            font-size: 12pt;
+            color: #4169e1;
+            margin-bottom: 10px;
+        }
+
+        .concept-box .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .concept-box .compare-item {
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .concept-box .compare-item.main {
+            background: #d4edda;
+            border: 1px solid #28a745;
+        }
+
+        .concept-box .compare-item.detail {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+        }
+
+        .concept-box .compare-item strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .reading-passage {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .reading-passage h3 {
+            font-size: 13pt;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .reading-passage .passage-text {
+            font-size: 11pt;
+            text-align: justify;
+            line-height: 1.7;
+        }
+
+        .question-section {
+            margin-bottom: 20px;
+        }
+
+        .question-section h3 {
+            font-size: 12pt;
+            color: #4169e1;
+            margin-bottom: 10px;
+            padding: 8px;
+            background: #e8f0fe;
+        }
+
+        .question-box {
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+        }
+
+        .question-box .question {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .question-box .line {
+            border-bottom: 1px solid #ddd;
+            height: 26px;
+            margin-bottom: 2px;
+        }
+
+        .main-idea-formula {
+            background: #f0f8f0;
+            border: 2px solid #28a745;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .main-idea-formula h3 {
+            color: #28a745;
+            font-size: 12pt;
+            margin-bottom: 10px;
+        }
+
+        .formula {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 11pt;
+            margin-bottom: 15px;
+        }
+
+        .formula .part {
+            background: #fff;
+            padding: 8px 12px;
+            border: 1px solid #28a745;
+            border-radius: 5px;
+        }
+
+        .formula .plus {
+            font-size: 18pt;
+            color: #28a745;
+        }
+
+        .formula .equals {
+            font-size: 18pt;
+            color: #28a745;
+        }
+
+        .formula .result {
+            background: #28a745;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .final-answer {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+        }
+
+        .final-answer .label {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .final-answer .line {
+            border-bottom: 1px solid #ddd;
+            height: 28px;
+            margin-bottom: 2px;
+        }
+
+        .footer {
+            margin-top: 25px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            font-size: 9pt;
+            color: #888;
+            text-align: center;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="title-section">
+            <h1>🔍 Main Idea Detective</h1>
+            <div class="subtitle">Phase 1: Structure & Summary | Week 2</div>
+        </div>
+        <div class="info-section">
+            <div class="name-line">Name: <span></span></div>
+            <div class="name-line">Date: <span></span></div>
+        </div>
+    </div>
+
+    <div class="mission-box">
+        <h2>🎯 Your Mission</h2>
+        <p>Be a detective and find the <strong>Main Idea</strong>—the one big message the author wants you to remember.
+            Don't get distracted by the details!</p>
+    </div>
+
+    <div class="concept-box">
+        <h3>🧠 Main Idea vs. Details: What's the Difference?</h3>
+        <div class="comparison">
+            <div class="compare-item main">
+                <strong>✅ Main Idea</strong>
+                The BIG picture. What is the whole text mostly about? You can say it in ONE sentence.
+            </div>
+            <div class="compare-item detail">
+                <strong>📌 Details</strong>
+                The small pieces. Specific facts, examples, or events that support the main idea.
+            </div>
+        </div>
+    </div>
+
+    <div class="reading-passage">
+        <h3>📖 "The Amazing Honeybee"</h3>
+        <div class="passage-text">
+            <p>Honeybees are some of the hardest-working creatures on Earth. A single bee can visit up to 5,000 flowers
+                in one day, collecting nectar and pollen. While doing this, bees spread pollen from plant to plant,
+                helping fruits, vegetables, and flowers grow. Without bees, we wouldn't have apples, almonds,
+                blueberries, or many other foods we eat every day.</p>
+            <p style="margin-top: 8px;">Bees also work together as a team. Each bee has a job: some guard the hive, some
+                take care of baby bees, and some fan their wings to keep the hive cool. The queen bee lays eggs, while
+                worker bees build the honeycomb and make honey. This teamwork keeps the whole colony alive and healthy.
+            </p>
+            <p style="margin-top: 8px;">Scientists are worried because bee populations are shrinking. Pesticides,
+                diseases, and habitat loss are harming bees around the world. Many people are now planting bee-friendly
+                gardens and avoiding harmful chemicals to help protect these important insects.</p>
+        </div>
+    </div>
+
+    <div class="question-section">
+        <h3>Step 1: Find the Details First</h3>
+        <div class="question-box">
+            <div class="question">1. List THREE specific facts or details from the text:</div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </div>
+
+    <div class="question-section">
+        <h3>Step 2: Think About the Topic</h3>
+        <div class="question-box">
+            <div class="question">2. What is this text mostly about? (One or two words)</div>
+            <div class="line"></div>
+        </div>
+    </div>
+
+    <div class="question-section">
+        <h3>Step 3: Find What the Author Wants You to Know</h3>
+        <div class="question-box">
+            <div class="question">3. What is the MOST IMPORTANT thing the author wants you to understand about this
+                topic?</div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </div>
+
+    <div class="main-idea-formula">
+        <h3>✨ The Main Idea Formula</h3>
+        <div class="formula">
+            <div class="part">Topic</div>
+            <div class="plus">+</div>
+            <div class="part">What the author says about it</div>
+            <div class="equals">=</div>
+            <div class="result">Main Idea</div>
+        </div>
+        <div class="final-answer">
+            <div class="label">Write your Main Idea sentence here:</div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </div>
+
+    <div class="footer">
+        잘살아보세 프로젝트 | Sol AI Tutoring | Phase 1 Worksheet 03
+    </div>
+</body>
+
+</html>

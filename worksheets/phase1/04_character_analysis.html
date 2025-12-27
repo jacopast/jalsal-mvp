@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Analysis Worksheet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: letter;
+            margin: 0.5in;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            font-size: 12pt;
+            line-height: 1.5;
+            color: #333;
+            padding: 0.5in;
+            max-width: 8.5in;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .title-section h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            color: #9932cc;
+        }
+
+        .title-section .subtitle {
+            font-size: 11pt;
+            color: #666;
+            font-style: italic;
+        }
+
+        .info-section {
+            text-align: right;
+            font-size: 10pt;
+        }
+
+        .info-section .name-line {
+            margin-bottom: 5px;
+        }
+
+        .info-section .name-line span {
+            display: inline-block;
+            border-bottom: 1px solid #333;
+            min-width: 150px;
+        }
+
+        .mission-box {
+            background: #f3e5f5;
+            border-left: 4px solid #9932cc;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .mission-box h2 {
+            font-size: 12pt;
+            color: #9932cc;
+            margin-bottom: 8px;
+        }
+
+        .mission-box p {
+            font-size: 11pt;
+        }
+
+        .reading-passage {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .reading-passage h3 {
+            font-size: 13pt;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .reading-passage .passage-text {
+            font-size: 11pt;
+            text-align: justify;
+            line-height: 1.7;
+        }
+
+        .character-profile {
+            border: 2px solid #9932cc;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .character-profile h3 {
+            color: #9932cc;
+            font-size: 13pt;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .profile-item {
+            padding: 10px;
+            background: #fafafa;
+            border: 1px solid #ddd;
+        }
+
+        .profile-item .label {
+            font-weight: bold;
+            color: #9932cc;
+            font-size: 11pt;
+            margin-bottom: 8px;
+        }
+
+        .profile-item .line {
+            border-bottom: 1px solid #ddd;
+            height: 24px;
+            margin-bottom: 2px;
+        }
+
+        .trait-section {
+            margin-bottom: 20px;
+        }
+
+        .trait-section h3 {
+            font-size: 12pt;
+            color: #fff;
+            background: #9932cc;
+            padding: 8px 15px;
+            margin-bottom: 10px;
+        }
+
+        .trait-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .trait-card {
+            border: 1px solid #ddd;
+            padding: 12px;
+            background: #fff;
+        }
+
+        .trait-card .number {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #9932cc;
+            margin-bottom: 5px;
+        }
+
+        .trait-card .label {
+            font-size: 10pt;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .trait-card .line {
+            border-bottom: 1px solid #ddd;
+            height: 22px;
+        }
+
+        .trait-card .evidence-label {
+            font-size: 9pt;
+            color: #888;
+            font-style: italic;
+            margin-top: 8px;
+            margin-bottom: 3px;
+        }
+
+        .change-section {
+            background: #fff8dc;
+            border: 2px solid #ffd700;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .change-section h3 {
+            color: #b8860b;
+            font-size: 12pt;
+            margin-bottom: 15px;
+        }
+
+        .change-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .change-box {
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .change-box .label {
+            font-weight: bold;
+            font-size: 10pt;
+            margin-bottom: 5px;
+        }
+
+        .change-box .line {
+            border-bottom: 1px solid #ddd;
+            height: 24px;
+        }
+
+        .arrow {
+            font-size: 24pt;
+            color: #ffd700;
+        }
+
+        .footer {
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            font-size: 9pt;
+            color: #888;
+            text-align: center;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="title-section">
+            <h1>👤 Character Deep Dive</h1>
+            <div class="subtitle">Phase 1: Structure & Summary | Week 2</div>
+        </div>
+        <div class="info-section">
+            <div class="name-line">Name: <span></span></div>
+            <div class="name-line">Date: <span></span></div>
+        </div>
+    </div>
+
+    <div class="mission-box">
+        <h2>🎯 Your Mission</h2>
+        <p>Great stories have characters that feel real. Analyze the main character by looking at their
+            <strong>traits</strong>, <strong>actions</strong>, and <strong>how they change</strong> from the beginning
+            to the end of the story.</p>
+    </div>
+
+    <div class="reading-passage">
+        <h3>📖 "The New Kid"</h3>
+        <div class="passage-text">
+            <p>When Marcus first walked into Lincoln Middle School, he kept his head down and his hoodie up. He had
+                moved four times in three years, and making friends seemed pointless. "Why bother?" he thought. "I'll
+                just have to leave again."</p>
+            <p style="margin-top: 8px;">In art class, Marcus sat alone in the corner, sketching in his notebook. A girl
+                named Sofia noticed his drawing—a dragon with incredible detail. "Wow, that's amazing!" she said. Marcus
+                just shrugged and turned away.</p>
+            <p style="margin-top: 8px;">A week later, the art teacher announced a mural project. Teams of two would
+                paint a section of the hallway wall. No one picked Marcus. Sofia walked over. "Want to be my partner? I
+                can't draw like you, but I'm good with paint." Marcus hesitated, then slowly nodded.</p>
+            <p style="margin-top: 8px;">Working side by side, Marcus began to open up. He shared stories about the
+                cities he'd lived in. Sofia listened and laughed at his jokes. On the day the mural was finished, Marcus
+                looked at their work—a phoenix rising from flames—and smiled. "Maybe," he thought, "this place could be
+                different."</p>
+        </div>
+    </div>
+
+    <div class="character-profile">
+        <h3>📋 Character Profile Card</h3>
+        <div class="profile-grid">
+            <div class="profile-item">
+                <div class="label">Character Name:</div>
+                <div class="line"></div>
+            </div>
+            <div class="profile-item">
+                <div class="label">Age/Grade (if known):</div>
+                <div class="line"></div>
+            </div>
+            <div class="profile-item">
+                <div class="label">Setting (Where is the story?):</div>
+                <div class="line"></div>
+            </div>
+            <div class="profile-item">
+                <div class="label">Main Challenge:</div>
+                <div class="line"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="trait-section">
+        <h3>🔍 Character Traits (with Evidence!)</h3>
+        <div class="trait-box">
+            <div class="trait-card">
+                <div class="number">Trait 1</div>
+                <div class="label">What word describes this character?</div>
+                <div class="line"></div>
+                <div class="evidence-label">Evidence from the text:</div>
+                <div class="line"></div>
+            </div>
+            <div class="trait-card">
+                <div class="number">Trait 2</div>
+                <div class="label">What word describes this character?</div>
+                <div class="line"></div>
+                <div class="evidence-label">Evidence from the text:</div>
+                <div class="line"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="change-section">
+        <h3>🔄 How Does the Character Change?</h3>
+        <div class="change-grid">
+            <div class="change-box">
+                <div class="label">At the BEGINNING:</div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="change-box">
+                <div class="label">At the END:</div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        잘살아보세 프로젝트 | Sol AI Tutoring | Phase 1 Worksheet 04
+    </div>
+</body>
+
+</html>

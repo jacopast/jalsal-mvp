@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWBST Summary Worksheet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: letter;
+            margin: 0.5in;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            font-size: 12pt;
+            line-height: 1.5;
+            color: #333;
+            padding: 0.5in;
+            max-width: 8.5in;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .title-section h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            color: #8b4513;
+        }
+
+        .title-section .subtitle {
+            font-size: 11pt;
+            color: #666;
+            font-style: italic;
+        }
+
+        .info-section {
+            text-align: right;
+            font-size: 10pt;
+        }
+
+        .info-section .name-line {
+            margin-bottom: 5px;
+        }
+
+        .info-section .name-line span {
+            display: inline-block;
+            border-bottom: 1px solid #333;
+            min-width: 150px;
+        }
+
+        .mission-box {
+            background: #fef3e2;
+            border-left: 4px solid #8b4513;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .mission-box h2 {
+            font-size: 12pt;
+            color: #8b4513;
+            margin-bottom: 8px;
+        }
+
+        .mission-box p {
+            font-size: 11pt;
+        }
+
+        .swbst-explained {
+            background: #fff;
+            border: 2px solid #8b4513;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            text-align: center;
+        }
+
+        .swbst-explained .letter {
+            font-size: 24pt;
+            font-weight: bold;
+            color: #8b4513;
+        }
+
+        .swbst-explained .word {
+            font-size: 10pt;
+            color: #666;
+        }
+
+        .reading-passage {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .reading-passage h3 {
+            font-size: 13pt;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .reading-passage .passage-text {
+            font-size: 11pt;
+            text-align: justify;
+            line-height: 1.7;
+        }
+
+        .swbst-section {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
+            align-items: start;
+        }
+
+        .swbst-label {
+            background: #8b4513;
+            color: #fff;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 11pt;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .swbst-label .big {
+            font-size: 16pt;
+            display: block;
+        }
+
+        .swbst-label .small {
+            font-size: 9pt;
+            font-weight: normal;
+        }
+
+        .swbst-input {
+            border: 1px solid #ccc;
+            padding: 10px;
+            background: #fafafa;
+            min-height: 50px;
+        }
+
+        .swbst-input .hint {
+            font-size: 9pt;
+            color: #888;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+
+        .swbst-input .line {
+            border-bottom: 1px solid #ddd;
+            height: 24px;
+        }
+
+        .final-summary {
+            background: #f0f8f0;
+            border: 2px solid #4a7c59;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .final-summary h3 {
+            color: #4a7c59;
+            font-size: 12pt;
+            margin-bottom: 10px;
+        }
+
+        .final-summary .lines {
+            background: #fff;
+            padding: 10px;
+            min-height: 80px;
+        }
+
+        .final-summary .line {
+            border-bottom: 1px solid #ddd;
+            height: 26px;
+        }
+
+        .footer {
+            margin-top: 25px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            font-size: 9pt;
+            color: #888;
+            text-align: center;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="title-section">
+            <h1>📝 SWBST Summary</h1>
+            <div class="subtitle">Phase 1: Structure & Summary | Week 1</div>
+        </div>
+        <div class="info-section">
+            <div class="name-line">Name: <span></span></div>
+            <div class="name-line">Date: <span></span></div>
+        </div>
+    </div>
+
+    <div class="mission-box">
+        <h2>🎯 Your Mission</h2>
+        <p>Use the <strong>SWBST</strong> framework to summarize a story in just one sentence! This powerful tool helps
+            you capture the most important parts of any story.</p>
+    </div>
+
+    <div class="swbst-explained">
+        <div>
+            <div class="letter">S</div>
+            <div class="word">Somebody</div>
+        </div>
+        <div>
+            <div class="letter">W</div>
+            <div class="word">Wanted</div>
+        </div>
+        <div>
+            <div class="letter">B</div>
+            <div class="word">But</div>
+        </div>
+        <div>
+            <div class="letter">S</div>
+            <div class="word">So</div>
+        </div>
+        <div>
+            <div class="letter">T</div>
+            <div class="word">Then</div>
+        </div>
+    </div>
+
+    <div class="reading-passage">
+        <h3>📖 "The Science Fair Surprise"</h3>
+        <div class="passage-text">
+            <p>Leo had been working on his volcano project for three weeks. He wanted to win first place at the school
+                science fair more than anything. His volcano was perfect—the paper mache was smooth, the paint looked
+                like real rock, and the "lava" recipe was ready to go.</p>
+            <p style="margin-top: 8px;">On the morning of the fair, Leo carefully carried his project to school. But as
+                he walked through the gym doors, another student bumped into him, and the volcano crashed to the floor.
+                Leo stared at the broken pieces, his eyes filling with tears.</p>
+            <p style="margin-top: 8px;">His best friend Ava rushed over. "We have 30 minutes before judging starts," she
+                said. "Let's fix it together." Working quickly, they glued the pieces back and touched up the paint. The
+                volcano wasn't perfect anymore—you could see the cracks—but when Leo demonstrated the eruption, the
+                judges were impressed by how he explained the chemical reaction. He didn't win first place, but he won
+                something better: the "Best Presentation" award and a friend who had his back.</p>
+        </div>
+    </div>
+
+    <div class="swbst-section">
+        <div class="swbst-label">
+            <span class="big">S</span>
+            <span class="small">Somebody</span>
+        </div>
+        <div class="swbst-input">
+            <div class="hint">Who is the main character?</div>
+            <div class="line"></div>
+        </div>
+    </div>
+
+    <div class="swbst-section">
+        <div class="swbst-label">
+            <span class="big">W</span>
+            <span class="small">Wanted</span>
+        </div>
+        <div class="swbst-input">
+            <div class="hint">What did they want?</div>
+            <div class="line"></div>
+        </div>
+    </div>
+
+    <div class="swbst-section">
+        <div class="swbst-label">
+            <span class="big">B</span>
+            <span class="small">But</span>
+        </div>
+        <div class="swbst-input">
+            <div class="hint">What problem got in the way?</div>
+            <div class="line"></div>
+        </div>
+    </div>
+
+    <div class="swbst-section">
+        <div class="swbst-label">
+            <span class="big">S</span>
+            <span class="small">So</span>
+        </div>
+        <div class="swbst-input">
+            <div class="hint">What did they do about it?</div>
+            <div class="line"></div>
+        </div>
+    </div>
+
+    <div class="swbst-section">
+        <div class="swbst-label">
+            <span class="big">T</span>
+            <span class="small">Then</span>
+        </div>
+        <div class="swbst-input">
+            <div class="hint">How did it end?</div>
+            <div class="line"></div>
+        </div>
+    </div>
+
+    <div class="final-summary">
+        <h3>✨ Now, put it all together! Write your complete SWBST summary sentence:</h3>
+        <div class="lines">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </div>
+
+    <div class="footer">
+        잘살아보세 프로젝트 | Sol AI Tutoring | Phase 1 Worksheet 02
+    </div>
+</body>
+
+</html>
