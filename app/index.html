@@ -197,53 +197,22 @@
             font-size: 14px;
         }
 
-        /* Worksheet Selection */
-        .worksheet-section {
-            margin-bottom: 20px;
-        }
-
-        .section-label {
+        /* Detected Worksheet Badge */
+        .detected-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
             font-size: 14px;
-            font-weight: 600;
-            color: var(--dark);
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .worksheet-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-
-        .worksheet-option {
-            padding: 15px;
-            background: var(--light-gray);
-            border: 2px solid transparent;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: center;
-        }
-
-        .worksheet-option:hover {
-            background: #eee;
-        }
-
-        .worksheet-option.selected {
-            border-color: var(--primary);
-            background: rgba(255, 107, 53, 0.1);
-        }
-
-        .worksheet-option .icon {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        .worksheet-option .name {
-            font-size: 13px;
             font-weight: 500;
-            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .detected-badge .icon {
+            font-size: 16px;
         }
 
         /* Loading State */
@@ -628,28 +597,6 @@
 
             <!-- SCAN TAB -->
             <div class="tab-content active" id="tab-scan">
-                <!-- Worksheet Selection -->
-                <div class="worksheet-section">
-                    <label class="section-label">어떤 워크시트인가요?</label>
-                    <div class="worksheet-grid">
-                        <div class="worksheet-option selected" data-type="bme">
-                            <div class="icon">📖</div>
-                            <div class="name">B-M-E</div>
-                        </div>
-                        <div class="worksheet-option" data-type="swbst">
-                            <div class="icon">📝</div>
-                            <div class="name">SWBST</div>
-                        </div>
-                        <div class="worksheet-option" data-type="main-idea">
-                            <div class="icon">🔍</div>
-                            <div class="name">Main Idea</div>
-                        </div>
-                        <div class="worksheet-option" data-type="character">
-                            <div class="icon">👤</div>
-                            <div class="name">Character</div>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Upload Section -->
                 <div class="upload-section" id="upload-area">
@@ -803,7 +750,7 @@
         <div class="loading-content">
             <div class="loading-spinner"></div>
             <h3>AI 분석 중...</h3>
-            <p>손글씨를 읽고 피드백을 준비하고 있어요</p>
+            <p>워크시트 유형을 감지하고 피드백을 준비하고 있어요</p>
         </div>
     </div>
 
@@ -855,14 +802,13 @@
             });
         });
 
-        // Worksheet Selection
-        document.querySelectorAll('.worksheet-option').forEach(option => {
-            option.addEventListener('click', () => {
-                document.querySelectorAll('.worksheet-option').forEach(o => o.classList.remove('selected'));
-                option.classList.add('selected');
-                state.selectedWorksheet = option.dataset.type;
-            });
-        });
+        // Auto-detect worksheet type from image
+        function detectWorksheetType() {
+            // In production, this would be done by AI analyzing the image
+            // For now, we randomly pick one to simulate detection
+            const types = ['bme', 'swbst', 'main-idea', 'character'];
+            return types[Math.floor(Math.random() * types.length)];
+        }
 
         // Upload Area Click
         uploadArea.addEventListener('click', () => {
@@ -947,7 +893,10 @@
             // Simulate AI analysis (replace with real API call)
             await new Promise(resolve => setTimeout(resolve, 2500));
 
-            // Generate feedback based on worksheet type
+            // Auto-detect worksheet type from image
+            state.selectedWorksheet = detectWorksheetType();
+
+            // Generate feedback based on detected worksheet type
             const feedback = generateFeedback(state.selectedWorksheet);
 
             // Update result UI
